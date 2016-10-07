@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<link href="//fonts.googleapis.com/css?family=Lato:400|Inconsolata" rel="stylesheet" type="text/css">
+<link href="https://rawgit.com/Semantic-Org/Semantic-UI/next/dist/semantic.css" rel="stylesheet" type="text/css">
+
+
+<style type="text/css" media="screen">
+body {
+  padding: 5em;
+}
+
+.ui.text.container {
+  font-size: 1.14285714rem;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="ui centered grid">
+  <div class="column">
+    <h1 class="ui header">Integrations</h1>
+
+    <form id="incidentForm" class="ui form">
+      <br>
+      <button id="development-link" class="ui primary button">Report a Development Issue</button>
+
+    </form>
+    <form id="suggestionForm" class="ui form">
+      <br>
+      <button id="enhancement-link" class="ui primary button">Request an Enhancement</button>
+
+    </form>
+  </div> <!-- column -->
+</div>
+
+<script>
+
+// Requires jQuery!
+
+jQuery.ajax({
+  url: "https://ilabdev.atlassian.net/s/839b8cbbd507e2ea9d757290c792cea2-T/fjjzew/72002/3c466bf91a4efe460c93d6b348cf1cac/2.0.14/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?locale=en-US&collectorId=c6ebfa40",
+  type: "get",
+  cache: true,
+  dataType: "script"
+});
+
+
+jQuery.ajax({
+  url: "https://ilabdev.atlassian.net/s/839b8cbbd507e2ea9d757290c792cea2-T/fjjzew/72002/3c466bf91a4efe460c93d6b348cf1cac/2.0.14/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?locale=en-US&collectorId=a047b341",
+  type: "get",
+  cache: true,
+  dataType: "script"
+});
+
+$(function() {
+
+    window.ATL_JQ_PAGE_PROPS = $.extend(window.ATL_JQ_PAGE_PROPS, {
+      // ==== integration bug collector =====
+    'c6ebfa40' : {
+        triggerFunction: function(showCollectorDialog) {
+          $("#development-link").click(function(e) {
+              e.preventDefault();
+              showCollectorDialog();
+              });
+        }
+    }
+
+      // ==== integration enhancement collector =====
+    , 'a047b341' : {
+        triggerFunction: function(showCollectorDialog) {
+          $("#enhancement-link").click(function(e) {
+            e.preventDefault();
+            showCollectorDialog();
+          });
+        }
+
+        , fieldValues: {
+            summary : ' ',
+            description : '*Integration Type:* \n\n*Functional Area:* \n\n*Task Details:* \n\n*Urgency Notes:* ',
+            priority : '3'
+        }
+      }
+
+
+  });
+
+
+
+});
+
+
+
+
+
+</script>
+
+</body>
+
+</html>
+
