@@ -37,9 +37,16 @@ body {
     </form>
     <form id="suggestionForm" class="ui form">
       <br>
-      <button id="enhancement-link" class="ui primary button">Request an Enhancement</button>
+      <button id="enhancement-link" class="ui basic blue button">Request an Enhancement</button>
 
     </form>
+
+    <form id="taskForm" class="ui form">
+      <br>
+      <button id="task-link" class="ui basic black button">Request a Task</button>
+
+    </form>
+
   </div> <!-- column -->
 </div>
 
@@ -61,6 +68,15 @@ jQuery.ajax({
   cache: true,
   dataType: "script"
 });
+
+
+jQuery.ajax({
+  url: "https://ilabdev.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/mrozqy/b/c/c8a734256c6dd2d1e4344e119e50264f/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=58f9d54c",
+  type: "get",
+  cache: true,
+  dataType: "script"
+});
+
 
 $(function() {
 
@@ -88,6 +104,22 @@ $(function() {
             summary : ' ',
             description : '*Integration Type:* \n\n*Functional Area:* \n\n*Task Details:* \n\n*Urgency Notes:* ',
             priority : '3'
+        }
+      }
+
+      // ==== integration task collector =====
+    , '58f9d54c' : {
+        triggerFunction: function(showCollectorDialog) {
+          $("#task-link").click(function(e) {
+            e.preventDefault();
+            showCollectorDialog();
+          });
+        }
+
+        , fieldValues: {
+            summary : ' ',
+            description : '*Integration Type:* \n\n*Functional Area:* \n\n*Task Details:* \n\n*Urgency Notes:* ',
+            priority : '2'
         }
       }
 
