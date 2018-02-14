@@ -56,6 +56,14 @@ body {
       </span>
     </form>
 
+    <form id="bridgeForm" class="ui form">
+      <br>
+      <button id="bridge-link" class="ui primary button">Request a Bridge</button>
+      <span style="color:gray">
+        request a bridge
+      </span>
+    </form>
+    
   </div> <!-- column -->
 </div>
 
@@ -84,6 +92,13 @@ jQuery.ajax({
   type: "get",
   cache: true,
   dataType: "script"
+});
+
+jQuery.ajax({
+    url: "https://ilabdev.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/-gchqkq/b/15/e73395c53c3b10fde2303f4bf74ffbf6/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?locale=en&collectorId=a16d2737",
+    type: "get",
+    cache: true,
+    dataType: "script"
 });
 
 
@@ -131,7 +146,21 @@ $(function() {
             priority : '3'
         }
       }
+      // ====  bridge request collector =====
+    , 'a16d2737' : {
+        triggerFunction: function(showCollectorDialog) {
+          $("#bridge-link").click(function(e) {
+            e.preventDefault();
+            showCollectorDialog();
+          });
+        }
 
+        , fieldValues: {
+            summary : ' [Replace with Institution Name] - Bridge Request - [Note Hardware and or Software] ',
+            description : '*Type of interlock:* \n\n*Name of Institution:* \n*Customer IT contact:* \n*Ship to contact:* \n*Ship to address:* \n\n*What is the basic configuration of the bridge?* \n*Confirmed that the bridge can connect to ssh port and servers?*\n\n*IP address:* \n*Gateway: \n*Network Mask (if applicable):* \n*DNS Server:* \n\n*iLab PM:* \n*iLab IA:* \n*Required ship date:* \n*Link to the institution:* ',
+            priority : '3'
+        }
+      }
 
   });
 
